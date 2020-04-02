@@ -1,11 +1,24 @@
-node {
-	stage('Build') {
-		echo "Build"
+
+pipeline {
+	agent any
+	stages {
+		stage('Build') {
+			echo 'I\'m in Build stage'
+		}
+		stage('Deploy-to-Dev') {
+			echo 'I\'m Deploying artifact to Dev servers'
+		}
 	}
-	stage('Test') {
-		echo "Test"
-	}
-	stage('Integration Test') {
-		echo 'Integration Test'
+
+	post {
+		always {
+			echo 'Script initiated'		
+		}
+		success {
+			echo 'Yeah!! evrything ran well'
+		}
+		failure {
+			echo 'Job didn\'t ran well'
+		}
 	}
 }
