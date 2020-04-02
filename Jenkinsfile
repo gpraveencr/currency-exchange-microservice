@@ -3,10 +3,14 @@ pipeline {
 	agent any
 	stages {
 		stage('Build') {
-			echo 'I\'m in Build stage'
+			steps {
+				echo 'I\'m in Build stage'
+			}
 		}
 		stage('Deploy-to-Dev') {
-			echo 'I\'m Deploying artifact to Dev servers'
+			steps {
+				echo 'I\'m Deploying artifact to Dev servers'
+			}
 		}
 	}
 
