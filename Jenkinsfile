@@ -21,16 +21,9 @@ pipeline {
 				sh 'mvn clean compile'
 			}
 		}
-		stage('Deploy-to-Dev') {
+		stage('package') {
 			steps {
-				echo 'I\'m Deploying artifact to Dev servers'
-				sh 'mvn test'
-			}
-		}
-		stage('Integration Test') {
-			steps {
-				echo 'In Integration Tests'
-				sh 'mvn failsafe:integration-test failsafe:verify'
+				sh 'mvn package -DskipTests'
 			}
 		}
 		stage('Build Docker Image') {
