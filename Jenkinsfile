@@ -33,6 +33,25 @@ pipeline {
 				sh 'mvn failsafe:integration-test failsafe:verify'
 			}
 		}
+		stage('Build Docker Image') {
+			steps {
+
+				//"docker build -t tennine/curreny-exchange-jenkins:$env.BUILD_TAG"
+				script {
+					dockerImage = docker.build("tennine/curreny-exchange-jenkins:$env.BUILD_TAG");
+				}
+			}
+		}
+		stage('Push Docker Image') {
+			steps {
+				script {
+					docker.withRegistry('','dockerhub') {
+						dockerImage.push();
+						dockerImage.push('latest');
+					}
+				}
+			}
+		}
 	}
 
 	post {
